@@ -35,15 +35,15 @@ The Toyota HSR platform consists of the following components:
 
 ## ⚙️ Platform Configuration
 
-Switch to the Toyota HSR platform:
+Clone this platform into `extensions/` of the core of OpenRoSDE, then switch to the Toyota HSR platform:
 
 ```shell
+git clone https://gitlab.com/coarobo/openrosde/openrosde-platform-hsr.git extensions/openrosde-platform-hsr
 bash ./SWITCH-ROBOT-PLATFORM.bash hsr
 ```
 
 > [!NOTE]
-> The default `.env` configuration is pre-configured for the Robotis TurtleBot3 platform.
-> Run `SWITCH-ROBOT-PLATFORM.bash hsr` to create the `.env.custom` file with the Toyota HSR configuration.
+> The switch creates the `.env.custom` file of the core with the Toyota HSR configuration of `env/hsr.env`, then clones the Git submodules of every extension and applies their patches.
 
 > [!IMPORTANT]
 > The first build of `hsr-devel` downloads `ghcr.io/hsr-project/tmc_wrs_binary:noetic-latest` (several GB).
@@ -65,11 +65,13 @@ OPENROSDE_ROS_MASTER_HOSTNAME=hsrb.local
 
 ## 🚀 Gazebo Simulation
 
-Start the Toyota HSR Gazebo simulation using the predefined Terminator layout:
+Start the Toyota HSR Gazebo simulation using the `tmux` session of the platform:
 
 ```shell
-bash ./RUN-TERMINATOR-TERMINAL.bash #[docker-project] default-gazebo
+bash ./RUN-TMUX-SESSION.bash #[docker-project] default-gazebo
 ```
+
+The Terminator layout of earlier releases still opens with `bash ./RUN-TERMINATOR-TERMINAL.bash #[docker-project] default-gazebo`.
 
 Or start the launch files manually in the Docker container:
 
@@ -117,16 +119,23 @@ Load the `HSR Example Behavior` behavior in the FlexBE App and press **Start**.
 
 ## 📜 Third-Party Software and Licensing
 
-OpenRoSDE itself is distributed under the [MIT License](../../LICENSE).
+This platform is distributed under the [Apache License 2.0](../../LICENSE).
 The HSR platform image bundles third-party software whose licenses apply to the resulting Docker image:
 
 | Component | Source | License |
 | --- | --- | --- |
-| `tmc_wrs_binary` (HSR ROS Noetic stack: URDF, SRDF, MoveIt, navigation, controllers, all `hsrb_*` and `tmc_*` packages, WRS apartment world) | [`ghcr.io/hsr-project/tmc_wrs_binary`](https://github.com/hsr-project/tmc_wrs_docker) | [BSD 3-Clause Clear](https://spdx.org/licenses/BSD-3-Clause-Clear.html) (Toyota Motor Corporation) |
+| `tmc_wrs_binary` (HSR ROS Noetic stack: URDF, SRDF, MoveIt, navigation, controllers, all `hsrb_*` and `tmc_*` packages, WRS apartment world) | `ghcr.io/hsr-project/tmc_wrs_binary:noetic-latest`, made from [https://github.com/hsr-project/tmc_wrs_binary](https://github.com/hsr-project/tmc_wrs_binary) | [BSD 3-Clause Clear](https://spdx.org/licenses/BSD-3-Clause-Clear.html) (Toyota Motor Corporation) |
+| `hsrb_meshes` (meshes of the HSR, inside `tmc_wrs_binary`) | [https://github.com/hsr-project/hsrb_meshes](https://github.com/hsr-project/hsrb_meshes) | [CC BY-NC-ND 4.0](https://creativecommons.org/licenses/by-nc-nd/4.0/) (Toyota Motor Corporation) |
 | `tmc_wrs_docker` reference (build recipes and helpers) | [hsr-project/tmc_wrs_docker](https://github.com/hsr-project/tmc_wrs_docker) | [BSD 3-Clause Clear](https://spdx.org/licenses/BSD-3-Clause-Clear.html) (Toyota Motor Corporation) |
-| `openrosde_hsr_launch`, `openrosde_hsr_behaviors` (this repository) | [coarobo/SDE](https://gitlab.com/coarobo/SDE) | [MIT](../../LICENSE) (Coarobo GK) |
+| `openrosde_hsr_launch`, `openrosde_hsr_behaviors` (this repository) | [https://gitlab.com/coarobo/openrosde/openrosde-platform-hsr](https://gitlab.com/coarobo/openrosde/openrosde-platform-hsr) | [Apache-2.0](../../LICENSE) (Coarobo GK) |
 
 > [!IMPORTANT]
 > The corresponding ROS Noetic source code for the HSR stack is hosted on the private [`git.hsr.io`](https://git.hsr.io/) GitLab and is intentionally not vendored in this repository.
 > Access requires a Toyota HSR Community account.
 > The publicly distributed binary image is the only practical way to obtain a functional HSR Noetic simulator and is sufficient for the OpenRoSDE workflow.
+
+> [!WARNING]
+> `hsrb_meshes` holds the meshes of the HSR under CC BY-NC-ND 4.0, which allows neither commercial use nor derivatives.
+> The image `hsr-devel` redistributes them inside `tmc_wrs_binary`, so a commercial use of the image needs the agreement of the rights holder.
+
+The Clear BSD License of `tmc_wrs_binary` requires its notice with every redistribution in binary form, so [`NOTICE`](../../NOTICE) of this repository reproduces it for the published image `hsr-devel`.
