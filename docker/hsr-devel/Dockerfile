@@ -5,7 +5,7 @@
 
 # Global build argument used by the second 'FROM' stage below.
 # It must be declared before any 'FROM' so buildkit treats it as a global ARG.
-ARG OPENROSDE_BASE_IMAGE=registry.gitlab.com/coarobo/sde/openrosde-base:main
+ARG OPENROSDE_BASE_IMAGE=ghcr.io/openrosde/openrosde-base:main
 
 ################################################################################
 

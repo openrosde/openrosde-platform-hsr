@@ -38,7 +38,7 @@ The Toyota HSR platform consists of the following components:
 Clone this platform into `extensions/` of the core of OpenRoSDE, then switch to the Toyota HSR platform:
 
 ```shell
-git clone https://gitlab.com/coarobo/openrosde/openrosde-platform-hsr.git extensions/openrosde-platform-hsr
+git clone https://github.com/openrosde/openrosde-platform-hsr.git extensions/openrosde-platform-hsr
 bash ./SWITCH-ROBOT-PLATFORM.bash hsr
 ```
 
@@ -127,7 +127,7 @@ The HSR platform image bundles third-party software whose licenses apply to the 
 | `tmc_wrs_binary` (HSR ROS Noetic stack: URDF, SRDF, MoveIt, navigation, controllers, all `hsrb_*` and `tmc_*` packages, WRS apartment world) | `ghcr.io/hsr-project/tmc_wrs_binary:noetic-latest`, made from [https://github.com/hsr-project/tmc_wrs_binary](https://github.com/hsr-project/tmc_wrs_binary) | [BSD 3-Clause Clear](https://spdx.org/licenses/BSD-3-Clause-Clear.html) (Toyota Motor Corporation) |
 | `hsrb_meshes` (meshes of the HSR, inside `tmc_wrs_binary`) | [https://github.com/hsr-project/hsrb_meshes](https://github.com/hsr-project/hsrb_meshes) | [CC BY-NC-ND 4.0](https://creativecommons.org/licenses/by-nc-nd/4.0/) (Toyota Motor Corporation) |
 | `tmc_wrs_docker` reference (build recipes and helpers) | [hsr-project/tmc_wrs_docker](https://github.com/hsr-project/tmc_wrs_docker) | [BSD 3-Clause Clear](https://spdx.org/licenses/BSD-3-Clause-Clear.html) (Toyota Motor Corporation) |
-| `openrosde_hsr_launch`, `openrosde_hsr_behaviors` (this repository) | [https://gitlab.com/coarobo/openrosde/openrosde-platform-hsr](https://gitlab.com/coarobo/openrosde/openrosde-platform-hsr) | [Apache-2.0](../../LICENSE) (Coarobo GK) |
+| `openrosde_hsr_launch`, `openrosde_hsr_behaviors` (this repository) | [https://github.com/openrosde/openrosde-platform-hsr](https://github.com/openrosde/openrosde-platform-hsr) | [Apache-2.0](../../LICENSE) (Coarobo GK) |
 
 > [!IMPORTANT]
 > The corresponding ROS Noetic source code for the HSR stack is hosted on the private [`git.hsr.io`](https://git.hsr.io/) GitLab and is intentionally not vendored in this repository.
