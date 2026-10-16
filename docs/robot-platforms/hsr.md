@@ -13,9 +13,10 @@ Platform-specific documentation for the [Toyota HSR (Human Support Robot)](https
 The HSR platform image in OpenRoSDE is built as a **multi-stage Docker image** that combines two BSD 3-Clause Clear Licensed sources both publicly distributed by Toyota Motor Corporation:
 
 - **Stage 1 (`hsr_binary`):** `ghcr.io/hsr-project/tmc_wrs_binary:noetic-latest`, the WRS competition binary image that ships the full HSR ROS Noetic stack (URDF, SRDF, MoveIt configuration, navigation stack, controllers, all `tmc_*` and `hsrb_*` packages, and the WRS competition worlds).
-- **Stage 2 (main):** the OpenRoSDE base image (`openrosde-base`), which provides CUDA, ROS Noetic desktop-full, Terminator, FlexBE, `wmctrl`, and the OpenRoSDE helper scripts.
+- **Stage 2 (main):** the OpenRoSDE base image (`openrosde-base`), which provides CUDA, ROS Noetic desktop-full, FlexBE, `wmctrl`, and the OpenRoSDE helper scripts.
 
-The build COPY-merges the additional `/opt/ros/noetic/` entries (HSR-specific packages built with `--cmake-args -DCMAKE_INSTALL_PREFIX=/opt/ros/noetic`) from the binary image into the OpenRoSDE base without clobbering any existing files. Sourcing `/opt/ros/noetic/setup.bash` is sufficient — no separate workspace overlay is needed.
+The build COPY-merges the additional `/opt/ros/noetic/` entries (HSR-specific packages built with `--cmake-args -DCMAKE_INSTALL_PREFIX=/opt/ros/noetic`) from the binary image into the OpenRoSDE base without clobbering any existing files.
+Sourcing `/opt/ros/noetic/setup.bash` is sufficient, and no separate workspace overlay is needed.
 
 This approach was chosen because:
 
@@ -82,7 +83,7 @@ roslaunch openrosde_hsr_launch hsr_rviz_default.launch
 
 > [!NOTE]
 > `hsr_bringup_default_gazebo.launch` spawns the HSR-B in the WRS apartment world with all controllers loaded.
-> Start MoveIt and the navigation stack separately via the Terminator panes using `hsr_moveit_default.launch` and `hsr_navigation_default_gazebo.launch`.
+> Start MoveIt and the navigation stack separately with `hsr_moveit_default.launch` and `hsr_navigation_default_gazebo.launch`, which the `tmux` session starts in panes of their own.
 > Click **2D Nav Goal** in RViz to send autonomous navigation goals.
 
 ## 🕐 Clock Synchronization
