@@ -9,8 +9,8 @@ The `openrosde_hsr_launch` package provides launch files for the Toyota HSR (Hum
 
 The HSR platform image in OpenRoSDE is built as a multi-stage Docker image whose first stage is the publicly distributed Toyota binary image `ghcr.io/hsr-project/tmc_wrs_binary:noetic-latest` (BSD 3-Clause Clear).
 The full HSR ROS Noetic stack (URDF, SRDF, MoveIt, navigation, controllers, all `hsrb_*` and `tmc_*` packages, and the WRS apartment world) is installed under `/opt/ros/noetic` inside the binary image and COPY-merged into the OpenRoSDE base.
-Sourcing `/opt/ros/noetic/setup.bash` is sufficient to expose all HSR packages; no separate workspace overlay is required.
-The launch files in this package are thin wrappers around the upstream Toyota launch files, integrated with the OpenRoSDE conventions (window maximization, Terminator layouts, FlexBE).
+Sourcing `/opt/ros/noetic/setup.bash` is sufficient to expose all HSR packages, and no separate workspace overlay is required.
+The launch files in this package are thin wrappers around the upstream Toyota launch files, integrated with the OpenRoSDE conventions (window maximization, `tmux` panes, FlexBE).
 
 ## Gazebo Simulation
 
@@ -30,11 +30,13 @@ roslaunch openrosde_hsr_launch hsr_moveit_default.launch
 roslaunch openrosde_hsr_launch hsr_rviz_default.launch
 ```
 
-To start the same Gazebo stack in the predefined Terminator layout:
+To start the same Gazebo stack in the `tmux` session of the platform:
 
 ```shell
-bash ./RUN-TERMINATOR-TERMINAL.bash #[docker-project] default-gazebo
+bash ./RUN-TMUX-SESSION.bash #[docker-project] default-gazebo
 ```
+
+The Terminator layout of earlier releases still opens with `bash ./RUN-TERMINATOR-TERMINAL.bash #[docker-project] default-gazebo`.
 
 ## Real Robot
 
